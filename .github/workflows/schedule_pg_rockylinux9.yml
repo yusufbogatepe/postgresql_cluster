@@ -1,10 +1,10 @@
 ---
 
-name: scheduled PostgreSQL (OracleLinux 7)
+name: scheduled PostgreSQL (RockyLinux 9)
 
 on:
   schedule:
-    - cron: '45 0 * * *'
+    - cron: '15 1 * * *'
 
 jobs:
   test:
@@ -27,7 +27,6 @@ jobs:
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          IMAGE_DISTRO: oraclelinux7
-          IMAGE_NAMESPACE: glillico
+          IMAGE_DISTRO: rockylinux9
 
 ...

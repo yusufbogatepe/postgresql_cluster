@@ -35,19 +35,28 @@ jobs:
           - distro: centos8
             tag: latest
             namespace: geerlingguy
-          - distro: centos7
+          - distro: rockylinux8
             tag: latest
             namespace: geerlingguy
-          - distro: rockylinux8
+          - distro: rockylinux9
             tag: latest
             namespace: geerlingguy
           - distro: almalinux8
             tag: latest
             namespace: glillico
+          - distro: almalinux9
+            tag: latest
+            namespace: glillico
           - distro: oraclelinux8
             tag: latest
             namespace: glillico
-          - distro: oraclelinux7
+          - distro: oraclelinux9
+            tag: latest
+            namespace: glillico
+          - distro: centosstream9
+            tag: latest
+            namespace: glillico
+          - distro: centosstream8
             tag: latest
             namespace: glillico
 

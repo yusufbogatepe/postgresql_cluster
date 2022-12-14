@@ -1,24 +1,14 @@
 ---
 
-name: Molecule PostgresPro
+name: scheduled PostgreSQL (CentOS Stream 9)
 
 on:
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: '0 0 * * *'
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        distro:
-          - centos8
-          - debian10
-          - debian11
-          - ubuntu1804
-          - ubuntu2004
-          - ubuntu2204
 
     steps:
       - name: checkout
@@ -32,11 +22,12 @@ jobs:
       - name: Install dependencies
         run: pip3 install molecule[docker] ansible
 
-      - name: Run Molecule tests for PostgresPro
-        run: molecule test --scenario-name postgrespro
+      - name: Run Molecule tests
+        run: molecule test
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          IMAGE_DISTRO: ${{ matrix.distro }}
+          IMAGE_DISTRO: centosstream9
+          IMAGE_NAMESPACE: glillico
 
 ...
