@@ -7,23 +7,23 @@ proxy_env: {}  # yamllint disable rule:braces
 # ---------------------------------------------------------------------
 
 # Cluster variables
-cluster_vip: ""  # ip address for client access to databases in the cluster (optional)
+cluster_vip: "10.10.10.50"  # ip address for client access to databases in the cluster (optional)
 vip_interface: "{{ ansible_default_ipv4.interface }}"  # interface name (ex. "ens32")
 
-patroni_cluster_name: "postgres-cluster"  # specify the cluster name
+patroni_cluster_name: "ansibledbcluster"  # specify the cluster name
 patroni_install_version: "latest"  # or specific version (example 1.5.6)
 
 patroni_superuser_username: "postgres"
-patroni_superuser_password: "postgres-pass"  # please change password
+patroni_superuser_password: "asdasdzxc"  # please change password
 patroni_replication_username: "replicator"
-patroni_replication_password: "replicator-pass"  # please change password
+patroni_replication_password: "asdasdzxcasd"  # please change password
 
-synchronous_mode: false  # or 'true' for enable synchronous database replication
+synchronous_mode: true  # or 'true' for enable synchronous database replication
 synchronous_mode_strict: false  # if 'true' then block all client writes to the master, when a synchronous replica is not available
 synchronous_node_count: 1  # number of synchronous standby databases
 
 # Load Balancing
-with_haproxy_load_balancing: false  # or 'true' if you want to install and configure the load-balancing
+with_haproxy_load_balancing: true  # or 'true' if you want to install and configure the load-balancing
 haproxy_listen_port:
   master: 5000
   replicas: 5001
@@ -35,8 +35,8 @@ haproxy_maxconn:
   master: 10000
   replica: 10000
 haproxy_timeout:
-  client: "60m"
-  server: "60m"
+  client: "30m"
+  server: "30m"
 
 # vip-manager (if cluster_vip is specified and with_haproxy_load_balancing: false)
 vip_manager_version: "1.0.2"  # version to install
@@ -49,7 +49,8 @@ vip_manager_mask: "24"  # netmask for the virtual ip
 
 # DCS (Distributed Consensus Store)
 dcs_exists: false  # or 'true' if you do not want to install and configure the etcd cluster
-dcs_type: "etcd"
+# dcs_type: "etcd"
+dcs_type: "consul"
 
 # if dcs_exists: false and dcs_type: "etcd"
 etcd_ver: "v3.3.27"  # version for deploy etcd cluster
@@ -242,7 +243,7 @@ patroni_standby_cluster:
 #  restore_command: ""  # command to restore WAL records from the remote master to standby leader (optional)
 #  recovery_min_apply_delay: ""  # how long to wait before actually apply WAL records on a standby leader (optional)
 
-patroni_log_destination: stderr  # or 'logfile'
+patroni_log_destination: logfile  # or 'stderr'
 # if patroni_log_destination: logfile
 patroni_log_dir: /var/log/patroni
 patroni_log_level: info
@@ -369,5 +370,5 @@ netdata_conf:
   memory_mode: "dbengine"  # The long-term metrics storage with efficient RAM and disk usage.
   page_cache_size: 64  # Determines the amount of RAM in MiB that is dedicated to caching Netdata metric values.
   dbengine_disk_space: 1024  # Determines the amount of disk space in MiB that is dedicated to storing Netdata metric values.
-
+    
 ...
